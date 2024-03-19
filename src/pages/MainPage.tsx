@@ -25,7 +25,6 @@ const MainPage = () => {
               key={title}
               defaultValue=""
               name={title}
-              required
               disabled={title !== TITLE.SIZE && size === ""}
               onChange={(e) => handleChangeSelect(e, title)}
               ref={title === TITLE.SIZE ? sizeRef : colorRef}

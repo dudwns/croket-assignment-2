@@ -43,6 +43,7 @@ const useSelect = (datas: DataResponse) => {
   const handleChangeSelect = (e: ChangeEvent<HTMLSelectElement>, title: string) => {
     if (title === TITLE.SIZE) {
       setSize(e.target.value);
+      setColor("");
       getSumRemainColorCount(e.target.value);
       if (colorRef.current) colorRef.current.value = "";
     } else if (title === TITLE.COLOR) setColor(e.target.value);
@@ -103,7 +104,9 @@ const useSelect = (datas: DataResponse) => {
 
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`${size} / ${color}`);
+    if (size === "") alert("사이즈를 선택해 주세요.");
+    else if (color === "") alert("색상을 선택해 주세요.");
+    else console.log(`${size} / ${color}`);
   };
 
   const handleClickCancel = () => {

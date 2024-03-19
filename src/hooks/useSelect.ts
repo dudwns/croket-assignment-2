@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { DataResponse } from "../types";
+import { COLOR, SIZE, SOLD_OUT, TITLE } from "../constants";
 
 const useSelect = (datas: DataResponse) => {
   const [size, setSize] = useState("");
@@ -25,37 +26,37 @@ const useSelect = (datas: DataResponse) => {
   };
 
   const getSumRemainSizeCount = useCallback(() => {
-    const smallCount = getSizeCount("스몰");
-    const largeCount = getSizeCount("라지");
+    const smallCount = getSizeCount(SIZE.SMALL);
+    const largeCount = getSizeCount(SIZE.LARGE);
 
     setSizeCount({ smallCount, largeCount });
   }, [getSizeCount]);
 
   const getSumRemainColorCount = (size: string) => {
-    const blackCount = getColorCount(size, "검정");
-    const whiteCount = getColorCount(size, "하양");
-    const redCount = getColorCount(size, "빨강");
+    const blackCount = getColorCount(size, COLOR.BLACK);
+    const whiteCount = getColorCount(size, COLOR.WHITE);
+    const redCount = getColorCount(size, COLOR.RED);
 
     setColorCount({ blackCount, whiteCount, redCount });
   };
 
   const handleChangeSelect = (e: ChangeEvent<HTMLSelectElement>, title: string) => {
-    if (title === "사이즈") {
+    if (title === TITLE.SIZE) {
       setSize(e.target.value);
       getSumRemainColorCount(e.target.value);
       if (colorRef.current) colorRef.current.value = "";
-    } else if (title === "색상") setColor(e.target.value);
+    } else if (title === TITLE.COLOR) setColor(e.target.value);
     else alert("잘못된 접근입니다.");
   };
 
   const getDisabledCheck = useCallback(
     (option: string) => {
       if (
-        (option === "스몰" && sizeCount.smallCount === 0) ||
-        (option === "라지" && sizeCount.largeCount === 0) ||
-        (option === "검정" && colorCount.blackCount === 0) ||
-        (option === "하양" && colorCount.whiteCount === 0) ||
-        (option === "빨강" && colorCount.redCount === 0)
+        (option === SIZE.SMALL && sizeCount.smallCount === 0) ||
+        (option === SIZE.LARGE && sizeCount.largeCount === 0) ||
+        (option === COLOR.BLACK && colorCount.blackCount === 0) ||
+        (option === COLOR.WHITE && colorCount.whiteCount === 0) ||
+        (option === COLOR.RED && colorCount.redCount === 0)
       )
         return true;
       else return false;
@@ -73,20 +74,20 @@ const useSelect = (datas: DataResponse) => {
     (title: string, option: string) => {
       let name = option;
 
-      if (title === "사이즈") {
+      if (title === TITLE.SIZE) {
         if (
-          (option === "스몰" && sizeCount.smallCount === 0) ||
-          (option === "라지" && sizeCount.largeCount === 0)
+          (option === SIZE.SMALL && sizeCount.smallCount === 0) ||
+          (option === SIZE.LARGE && sizeCount.largeCount === 0)
         )
-          name += " (품절)";
-      } else if (title === "색상") {
-        if (option === "검정" && colorCount.blackCount !== 0)
+          name += SOLD_OUT;
+      } else if (title === TITLE.COLOR) {
+        if (option === COLOR.BLACK && colorCount.blackCount !== 0)
           name += ` (${colorCount.blackCount}개 구매가능)`;
-        else if (option === "하양" && colorCount.whiteCount !== 0)
+        else if (option === COLOR.WHITE && colorCount.whiteCount !== 0)
           name += ` (${colorCount.whiteCount}개 구매가능)`;
-        else if (option === "빨강" && colorCount.redCount !== 0)
+        else if (option === COLOR.RED && colorCount.redCount !== 0)
           name += ` (${colorCount.redCount}개 구매가능)`;
-        else name += " (품절)";
+        else name += SOLD_OUT;
       }
 
       return name;

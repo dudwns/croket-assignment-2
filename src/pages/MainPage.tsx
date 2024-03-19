@@ -2,6 +2,7 @@ import styled from "styled-components";
 import datas from "../data/data.json";
 import useSelect from "../hooks/useSelect";
 import Button from "../components/Button";
+import { TITLE } from "../constants";
 
 const MainPage = () => {
   const {
@@ -25,9 +26,9 @@ const MainPage = () => {
               defaultValue=""
               name={title}
               required
-              disabled={title !== "사이즈" && size === ""}
+              disabled={title !== TITLE.SIZE && size === ""}
               onChange={(e) => handleChangeSelect(e, title)}
-              ref={title === "사이즈" ? sizeRef : colorRef}
+              ref={title === TITLE.SIZE ? sizeRef : colorRef}
             >
               <option value="" disabled={true}>
                 {title}

@@ -43,14 +43,14 @@ const MainPage = () => {
             <Button
               type="submit"
               text="출력"
-              color="rgb(60, 140, 236)"
-              hcolor="rgb(60, 160, 236)"
+              $bgColor="rgb(60, 140, 236)"
+              $hBgColor="rgb(60, 160, 236)"
             />
             <Button
               type="button"
               text="취소"
-              color="rgb(150, 172, 198)"
-              hcolor="rgb(182, 181, 187)"
+              $bgColor="rgb(150, 172, 198)"
+              $hBgColor="rgb(182, 181, 187)"
               onClick={handleClickCancel}
             />
           </ButtonContainer>

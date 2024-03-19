@@ -3,30 +3,35 @@ import styled from "styled-components";
 interface ButtonType {
   type: "button" | "submit" | "reset" | undefined;
   text: string;
-  color: string;
-  hcolor: string;
+  $bgColor: string;
+  $hBgColor: string;
   onClick?: VoidFunction;
 }
 
-const Button = ({ type, text, color, hcolor, onClick }: ButtonType) => {
+const Button = ({ type, text, $bgColor, $hBgColor, onClick }: ButtonType) => {
   return (
-    <StyledButton type={type} color={color} hcolor={hcolor} onClick={onClick && onClick}>
+    <StyledButton
+      type={type}
+      $bgColor={$bgColor}
+      $hBgColor={$hBgColor}
+      onClick={onClick && onClick}
+    >
       {text}
     </StyledButton>
   );
 };
 
-const StyledButton = styled.button<{ color: string; hcolor: string }>`
+const StyledButton = styled.button<{ $bgColor: string; $hBgColor: string }>`
   width: 140px;
   height: 40px;
   border: none;
   border-radius: 3px;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.$bgColor};
   color: white;
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.hcolor};
+    background-color: ${(props) => props.$hBgColor};
   }
 `;
 
